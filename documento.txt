@@ -1,0 +1,6 @@
+Resultado: no hay jugadores suficientes 
+
+Resultado: El ganador fue: Sergio, el segundo lugar fue para: Andres y el tercer lugar: Juan 
+
+Resultado: No hay jugadores suficientes para completar el podio 
+

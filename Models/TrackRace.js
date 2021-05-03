@@ -21,20 +21,20 @@ class TrackRace {
     this.distance = distance;
     this.lanes = cars.map((car) => new Lane(car, distance));
   }
-  startRace() {
+  startRace(name) {
     const arriveCarsOrder = [];
-    this.lanes.forEach((lane) => {
+    this.lanes.forEach((lane,index) => {
       while (!lane.didCarFinish()) {
         const diceResult = throwDice();
         const distanceToMove = diceResult * 100;
         lane.setCarPosition(distanceToMove);
-        console.log(lane.currentPosition);
+        console.log(index, lane.currentPosition);
         if (lane.didCarFinish()) {
           arriveCarsOrder.push(lane.car);
         }
       }
     });
-    console.log(arriveCarsOrder);
+    return arriveCarsOrder
   }
 }
 

@@ -1,3 +1,4 @@
+const fs = require("fs");
 const inquirer = require("inquirer");
 const Driver = require("./Models/Driver");
 const Car = require("./Models/Car");
@@ -72,13 +73,33 @@ const correr = (a) => {
   console.log("has alcanzado la meta", a.nombre);
 };
 
+const createFile = (informacion) => {
+  fs.appendFile("documento.txt", `Resultado: ${informacion}`, (error) => {
+    if (error) {
+      throw error;
+    }
+    console.log("Se ha agregado la informacion correctamente");
+  });
+};
+
+const createPodium = (arriveCarsOrder) => {
+  if(arriveCarsOrder.length < 3) return `No hay jugadores suficientes para completar el podio \n\n`
+  const firstPlace = arriveCarsOrder[0].driver.name;
+  const secondPlace = arriveCarsOrder[1].driver.name;
+  const thirdPlace = arriveCarsOrder[2].driver.name;
+  const podiumResult = `El ganador fue: ${firstPlace}, el segundo lugar fue para: ${secondPlace} y el tercer lugar: ${thirdPlace} \n\n`;
+  return podiumResult;
+};
+
 const main = async () => {
   const numberOfPlayers = await requestNumberOfPlayes();
   const driversList = await createListOfDrivers(numberOfPlayers);
   const carsList = createListOfCars(driversList);
-  console.log(carsList);
   const trackRace = new TrackRace(carsList, 10000);
-  trackRace.startRace();
+  const arriveCarOrderList = trackRace.startRace();
+  const podium = createPodium(arriveCarOrderList);
+  console.log(podium);
+  createFile(podium);
 };
 
 main();

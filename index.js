@@ -46,49 +46,70 @@ const createListOfCars = (driversList) => {
   return driversList.map((driver, index) => new Car(driver, index));
 };
 
-const correr = (a) => {
-  var end, start;
-
-  start = new Date();
-  for (var i = 0; i < 1000; i++) {
-    Math.sqrt(i);
-  }
-  while (a.distancia < a.carro.carril.longitud) {
-    function aleatorio(minimo, maximo) {
-      return Math.floor(Math.random() * (maximo + 1 - minimo) + minimo);
-    }
-
-    const numero = aleatorio(1, 6);
-    //console.log(numero)
-    let nuevaDistancia = numero * 100;
-    //console.log('la nueva distancia es', nuevaDistancia)
-    a.distancia = a.distancia + nuevaDistancia;
-    console.log(a.nombre, "ha recorrido", a.distancia, "KM");
-  }
-
-  end = new Date();
-  console.log(
-    "Tu tiempo fue de " + (end.getTime() - start.getTime()) + " msec"
-  );
-  console.log("has alcanzado la meta", a.nombre);
-};
-
 const createFile = (informacion) => {
   fs.appendFile("documento.txt", `Resultado: ${informacion}`, (error) => {
     if (error) {
       throw error;
     }
-    console.log("Se ha agregado la informacion correctamente");
   });
 };
 
 const createPodium = (arriveCarsOrder) => {
-  if(arriveCarsOrder.length < 3) return `No hay jugadores suficientes para completar el podio \n\n`
-  const firstPlace = arriveCarsOrder[0].driver.name;
-  const secondPlace = arriveCarsOrder[1].driver.name;
-  const thirdPlace = arriveCarsOrder[2].driver.name;
-  const podiumResult = `El ganador fue: ${firstPlace}, el segundo lugar fue para: ${secondPlace} y el tercer lugar: ${thirdPlace} \n\n`;
-  return podiumResult;
+  if (arriveCarsOrder.length < 3) {
+    const message = `No hay jugadores suficientes para completar el podio \n`;
+    return message;
+  } else {
+    const firstPlace = arriveCarsOrder[0].driver.name;
+    const secondPlace = arriveCarsOrder[1].driver.name;
+    const thirdPlace = arriveCarsOrder[2].driver.name;
+    const podiumResult = `El ganador fue: -${firstPlace}-, el segundo lugar fue para: -${secondPlace}- y el tercer lugar: -${thirdPlace}- \n`;
+    return podiumResult;
+  }
+};
+
+const getInfoFromFile = () => {
+  let info = fs.readFileSync("./documento.txt", { encoding: "utf-8" });
+  const infoTxtList = info.split("\n");
+  return infoTxtList;
+};
+
+const createWinnersList = (elementsList) => {
+  listOfWinners = [];
+  elementsList.forEach((element) => {
+    if (
+      elementsList.indexOf(element) === 1 ||
+      elementsList.indexOf(element) === 3 ||
+      elementsList.indexOf(element) === 5
+    ) {
+      listOfWinners.push(element);
+    }
+  });
+  return listOfWinners;
+};
+
+const getListOfWinners = (infotxtList) => {
+  let winnersList = [];
+  infotxtList.forEach((element) => {
+    if (element !== `No hay jugadores suficientes para completar el podio \n`) {
+      const elementsList = element.split("-");
+      winnersList = winnersList.concat(createWinnersList(elementsList));
+    }
+  });
+  console.log("winner list", winnersList);
+  return winnersList;
+};
+
+const getNameToCheck = async () => {
+  const { playerName } = await inquirer.prompt([{
+    type: 'confirm',
+    name: "confirm",
+    message: `Desea consultar resultados por jugador?`,
+  },{
+    type: "input",
+    name: "playerName",
+    message: `ingrese el nombre del jugador que desea condultar `,
+  }]);
+  return playerName;
 };
 
 const main = async () => {
@@ -98,8 +119,10 @@ const main = async () => {
   const trackRace = new TrackRace(carsList, 10000);
   const arriveCarOrderList = trackRace.startRace();
   const podium = createPodium(arriveCarOrderList);
-  console.log(podium);
   createFile(podium);
+  const infoFromFile = getInfoFromFile();
+  getListOfWinners(infoFromFile);
+  await getNameToCheck()
 };
 
 main();

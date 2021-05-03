@@ -3,8 +3,6 @@ const Driver = require("./Models/Driver");
 const Car = require("./Models/Car");
 const TrackRace = require("./Models/TrackRace");
 
-const driverList = [];
-
 const requestNumberOfPlayes = async () => {
   const { numberOfPlayers } = await inquirer.prompt({
     type: "input",
@@ -47,11 +45,40 @@ const createListOfCars = (driversList) => {
   return driversList.map((driver, index) => new Car(driver, index));
 };
 
+const correr = (a) => {
+  var end, start;
+
+  start = new Date();
+  for (var i = 0; i < 1000; i++) {
+    Math.sqrt(i);
+  }
+  while (a.distancia < a.carro.carril.longitud) {
+    function aleatorio(minimo, maximo) {
+      return Math.floor(Math.random() * (maximo + 1 - minimo) + minimo);
+    }
+
+    const numero = aleatorio(1, 6);
+    //console.log(numero)
+    let nuevaDistancia = numero * 100;
+    //console.log('la nueva distancia es', nuevaDistancia)
+    a.distancia = a.distancia + nuevaDistancia;
+    console.log(a.nombre, "ha recorrido", a.distancia, "KM");
+  }
+
+  end = new Date();
+  console.log(
+    "Tu tiempo fue de " + (end.getTime() - start.getTime()) + " msec"
+  );
+  console.log("has alcanzado la meta", a.nombre);
+};
+
 const main = async () => {
   const numberOfPlayers = await requestNumberOfPlayes();
   const driversList = await createListOfDrivers(numberOfPlayers);
   const carsList = createListOfCars(driversList);
   console.log(carsList);
+  const trackRace = new TrackRace(carsList, 10000);
+  trackRace.startRace();
 };
 
 main();

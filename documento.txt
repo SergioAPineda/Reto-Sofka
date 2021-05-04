@@ -1,3 +1,9 @@
-Resultado: El ganador fue: -yy-, el segundo lugar fue para: -rr- y el tercer lugar: -tt- 
-Resultado: El ganador fue: -jj-, el segundo lugar fue para: -jj- y el tercer lugar: -dd- 
-Resultado: undefinedResultado: undefinedResultado: undefinedResultado: undefinedResultado: undefined
+Resultado: undefinedResultado: 
+
+El ganador fue: -Elly-, el segundo lugar fue para: -Mini- y el tercer lugar: -Drax- 
+Resultado: 
+
+El ganador fue: -Maria-, el segundo lugar fue para: -Angelica- y el tercer lugar: -Sergio- 
+Resultado: 
+
+El ganador fue: -Angelica-, el segundo lugar fue para: -Sergio- y el tercer lugar: -Maria- 

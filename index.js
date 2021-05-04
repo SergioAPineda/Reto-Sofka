@@ -3,6 +3,8 @@ const inquirer = require("inquirer");
 const Driver = require("./Models/Driver");
 const Car = require("./Models/Car");
 const TrackRace = require("./Models/TrackRace");
+const { rejects } = require("assert");
+const { resolve } = require("path");
 
 
 const requestNumberOfPlayes = async () => {
@@ -91,16 +93,17 @@ const createPodium = (arriveCarsOrder) => {
     const firstPlace = arriveCarsOrder[0].driver.name;
     const secondPlace = arriveCarsOrder[1].driver.name;
     const thirdPlace = arriveCarsOrder[2].driver.name;
-    const podiumResult = `El ganador fue: -${firstPlace}-, el segundo lugar fue para: -${secondPlace}- y el tercer lugar: -${thirdPlace}- \n`;
+    const podiumResult = `\n\nEl ganador fue: -${firstPlace}-, el segundo lugar fue para: -${secondPlace}- y el tercer lugar: -${thirdPlace}- \n`;
     console.log(podiumResult);
     return podiumResult;
 };
 
 const getInfoFromFile = () => {
   let info = fs.readFileSync("./documento.txt", { encoding: "utf-8" });
-  const infoTxtList = info.split("\n");
+  const infoTxtList = info.split('\n')
   return infoTxtList;
 };
+
 
 const createWinnersList = (elementsList) => {
     listOfWinners = [];
@@ -135,15 +138,17 @@ const getNameToCheck = async () => {
   return playerName;
 };
 
-const consultWinners = (listOfWinners, winnerName) => {
+const consultWinners = (winnerName) => {
   if(winnerName === '') return 'Finalizando...'
     let count = 0;
+    const infoFromFile = getInfoFromFile();
+    const listOfWinners = getListOfWinners(infoFromFile);
     listOfWinners.forEach((winner) => {
       if (winner === winnerName) {
         count++;
       }
     });
-    console.log(`El jugador ${winnerName} ha ganado ${count} carreras`);
+    console.log(`\n El jugador ${winnerName} ha ganado ${count} carreras \n`);
     return count;
 };
 
@@ -158,11 +163,8 @@ const main = async () => {
   const winnersList = getWinnersList(arriveCarOrderList, listSortArrivePlaces);
   const podium = createPodium(winnersList);
   createFile(podium);
-  const infoFromFile = getInfoFromFile();
-  const listOfWinners = getListOfWinners(infoFromFile);
   const winnerName = await getNameToCheck();
   console.log(consultWinners(
-    listOfWinners,
     winnerName
   ));
   console.log("\n\n*** CarRace ha Finalizado ***\n\n");

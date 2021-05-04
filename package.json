@@ -9,6 +9,7 @@
   "author": "Sergio Pineda",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^8.0.0"
+    "inquirer": "^8.0.0",
+    "workerpool": "^6.1.4"
   }
 }

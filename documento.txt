@@ -1,26 +1,2 @@
-Resultado: El ganador fue: -sergio-, el segundo lugar fue para: -andres- y el tercer lugar: -angelica- 
-Resultado: El ganador fue: -Sergio-, el segundo lugar fue para: -Andres- y el tercer lugar: -Angelica- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -ff-, el segundo lugar fue para: -gg- y el tercer lugar: -hh- 
-Resultado: No hay jugadores suficientes para completar el podio 
-Resultado: No hay jugadores suficientes para completar el podio 
-Resultado: No hay jugadores suficientes para completar el podio 
-Resultado: No hay jugadores suficientes para completar el podio 
-Resultado: No hay jugadores suficientes para completar el podio 
-Resultado: El ganador fue: -Drax-, el segundo lugar fue para: -jj- y el tercer lugar: -hh- 
-Resultado: El ganador fue: -Drax-, el segundo lugar fue para: -Rocket- y el tercer lugar: -Annie- 
-Resultado: El ganador fue: -Rocket-, el segundo lugar fue para: -Annie- y el tercer lugar: -Drax- 
-Resultado: El ganador fue: -Juan-, el segundo lugar fue para: -Jose- y el tercer lugar: -Pedro- 
-Resultado: El ganador fue: -Pedro-, el segundo lugar fue para: -Jose- y el tercer lugar: -- 
-Resultado: El ganador fue: -Ricardo-, el segundo lugar fue para: -Ñoño- y el tercer lugar: -Poker- 
-Resultado: El ganador fue: -Ricardo-, el segundo lugar fue para: -Pedro- y el tercer lugar: -Juan- 
+Resultado: El ganador fue: -yy-, el segundo lugar fue para: -rr- y el tercer lugar: -tt- 
+Resultado: El ganador fue: -jj-, el segundo lugar fue para: -jj- y el tercer lugar: -dd- 

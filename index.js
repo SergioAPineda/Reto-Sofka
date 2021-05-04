@@ -4,6 +4,7 @@ const Driver = require("./Models/Driver");
 const Car = require("./Models/Car");
 const TrackRace = require("./Models/TrackRace");
 
+
 const requestNumberOfPlayes = async () => {
   const { numberOfPlayers } = await inquirer.prompt({
     type: "input",
@@ -14,7 +15,7 @@ const requestNumberOfPlayes = async () => {
       }
       return true;
     },
-    message: `***Bienvenido a CarRace***\n\n
+    message: `\n\n***Bienvenido a CarRace***\n\n
       ingrese el número de jugadores 
     `,
   });
@@ -51,20 +52,48 @@ const createFile = (informacion) => {
     if (error) {
       throw error;
     }
+    return 'Se ha añadido la información'
   });
 };
 
+const getListOfPlaces = (arriveCarOrderList) => {
+  if (arriveCarOrderList.length < 6){
+    const message = `\nNo hay jugadores suficientes para completar el podio \n`;
+    console.log(message);
+    return;
+  }else{
+    let items = [];
+    arriveCarOrderList.forEach((item) => {
+      if (typeof item !== "string") items.push(item);
+    });
+    return items;
+  }
+};
+
+const sortArrivePlaces = (arrivePlaces) => {
+  if (!arrivePlaces) return;
+  return arrivePlaces.sort();
+};
+
+const getWinnersList = (arriveCarOrderList, sortArrivePlaces) => {
+  if (!sortArrivePlaces) return;
+  let winnersList = [];
+  for (let index = 0; index < 3; index++) {
+    const element = arriveCarOrderList.indexOf(sortArrivePlaces[index]);
+    let nameIndex = element + 1;
+    winnersList.push(arriveCarOrderList[nameIndex]);
+  }
+  return winnersList;
+};
+
 const createPodium = (arriveCarsOrder) => {
-  if (arriveCarsOrder.length < 3) {
-    const message = `No hay jugadores suficientes para completar el podio \n`;
-    return message;
-  } else {
+  if(!arriveCarsOrder) return;
     const firstPlace = arriveCarsOrder[0].driver.name;
     const secondPlace = arriveCarsOrder[1].driver.name;
     const thirdPlace = arriveCarsOrder[2].driver.name;
     const podiumResult = `El ganador fue: -${firstPlace}-, el segundo lugar fue para: -${secondPlace}- y el tercer lugar: -${thirdPlace}- \n`;
+    console.log(podiumResult);
     return podiumResult;
-  }
 };
 
 const getInfoFromFile = () => {
@@ -74,42 +103,47 @@ const getInfoFromFile = () => {
 };
 
 const createWinnersList = (elementsList) => {
-  listOfWinners = [];
-  elementsList.forEach((element) => {
-    if (
-      elementsList.indexOf(element) === 1 ||
-      elementsList.indexOf(element) === 3 ||
-      elementsList.indexOf(element) === 5
-    ) {
-      listOfWinners.push(element);
-    }
-  });
-  return listOfWinners;
+    listOfWinners = [];
+    elementsList.forEach((element) => {
+      if (
+        elementsList.indexOf(element) === 1 ||
+        elementsList.indexOf(element) === 3 ||
+        elementsList.indexOf(element) === 5
+      ) {
+        listOfWinners.push(element);
+      }
+    });
+    return listOfWinners;
+  //}
 };
 
 const getListOfWinners = (infotxtList) => {
   let winnersList = [];
   infotxtList.forEach((element) => {
-    if (element !== `No hay jugadores suficientes para completar el podio \n`) {
-      const elementsList = element.split("-");
-      winnersList = winnersList.concat(createWinnersList(elementsList));
-    }
+    const elementsList = element.split("-");
+    winnersList = winnersList.concat(createWinnersList(elementsList));
   });
-  console.log("winner list", winnersList);
   return winnersList;
 };
 
 const getNameToCheck = async () => {
-  const { playerName } = await inquirer.prompt([{
-    type: 'confirm',
-    name: "confirm",
-    message: `Desea consultar resultados por jugador?`,
-  },{
+  const { playerName } = await inquirer.prompt({
     type: "input",
     name: "playerName",
-    message: `ingrese el nombre del jugador que desea condultar `,
-  }]);
+    message: `\n Si desea consultar el historico de un jugador, ingrese el nombre del jugador o juego presione enter Enter para finalizar.`,
+  });
   return playerName;
+};
+
+const consultWinners = (listOfWinners, winnerName) => {
+    let count = 0;
+    listOfWinners.forEach((winner) => {
+      if (winner === winnerName) {
+        count++;
+      }
+    });
+    console.log(`El jugador ${winnerName} ha ganado ${count} carreras`);
+    return count;
 };
 
 const main = async () => {
@@ -118,11 +152,19 @@ const main = async () => {
   const carsList = createListOfCars(driversList);
   const trackRace = new TrackRace(carsList, 10000);
   const arriveCarOrderList = trackRace.startRace();
-  const podium = createPodium(arriveCarOrderList);
+  const arrivePlaces = getListOfPlaces(arriveCarOrderList);
+  const listSortArrivePlaces = sortArrivePlaces(arrivePlaces);
+  const winnersList = getWinnersList(arriveCarOrderList, listSortArrivePlaces);
+  const podium = createPodium(winnersList);
   createFile(podium);
   const infoFromFile = getInfoFromFile();
-  getListOfWinners(infoFromFile);
-  await getNameToCheck()
+  const listOfWinners = getListOfWinners(infoFromFile);
+  const winnerName = await getNameToCheck();
+  console.log(consultWinners(
+    listOfWinners,
+    winnerName
+  ));
+  console.log("\n\n*** CarRace ha Finalizado ***\n\n");
 };
 
 main();

@@ -136,6 +136,7 @@ const getNameToCheck = async () => {
 };
 
 const consultWinners = (listOfWinners, winnerName) => {
+  if(winnerName === '') return 'Finalizando...'
     let count = 0;
     listOfWinners.forEach((winner) => {
       if (winner === winnerName) {
